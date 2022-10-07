@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            ScoreManager.instance.UpdateScore();
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

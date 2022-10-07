@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,7 +17,6 @@ public class Player : MonoBehaviour
     {
         Move();
         Shoot();
-
     }
 
     void Move()
@@ -35,6 +36,16 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("DEAD!!!");
+            SceneManager.LoadScene("EndOfGame");
+            Destroy(gameObject);
         }
     }
 }
